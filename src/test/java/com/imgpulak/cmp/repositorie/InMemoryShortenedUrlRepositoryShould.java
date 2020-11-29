@@ -1,6 +1,6 @@
-package com.imgpulak.cmp.repositories;
+package com.imgpulak.cmp.repositorie;
 
-import com.imgpulak.cmp.dto.CabDto;
+import com.imgpulak.cmp.model.Cab;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,16 +14,16 @@ import static org.hamcrest.core.Is.is;
 public class InMemoryShortenedUrlRepositoryShould {
   private static final URI OSOCO_URI = URI.create("http://www.osoco.es");
   private static final String OSOCO_URL_MURMUR3_HASH = "339d3b53";
-  private InMemoryCabRepository inMemoryShortenedUrlRepository;
+  private InMemoryRepository inMemoryShortenedUrlRepository;
 
   @Before
   public void setUp() {
-    this.inMemoryShortenedUrlRepository = new InMemoryCabRepository();
+    this.inMemoryShortenedUrlRepository = new InMemoryRepository();
   }
 
   @Test public void
   save_a_new_shortened_url() throws MalformedURLException {
-    CabDto shortenedUrlDto = new CabDto();
+    Cab shortenedUrlDto = new Cab();
     shortenedUrlDto.setUrl(OSOCO_URI.toURL());
     inMemoryShortenedUrlRepository.save(OSOCO_URL_MURMUR3_HASH, shortenedUrlDto);
     assertThat(inMemoryShortenedUrlRepository.findURL(OSOCO_URL_MURMUR3_HASH).get().getUrl(), is(OSOCO_URI.toURL()));

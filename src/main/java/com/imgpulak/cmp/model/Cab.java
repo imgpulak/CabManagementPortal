@@ -1,8 +1,8 @@
-package com.imgpulak.cmp.dto;
+package com.imgpulak.cmp.model;
 
 import com.imgpulak.cmp.fsm.CabState;
 
-public class CabDto {
+public class Cab {
     private String cabId;
     private CabState cabState;
     private String cityId;

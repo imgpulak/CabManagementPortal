@@ -1,9 +1,9 @@
 package com.imgpulak.cmp.service;
 
 
-import com.imgpulak.cmp.dto.CabDto;
+import com.imgpulak.cmp.model.Cab;
 
-import com.imgpulak.cmp.interfaces.CabRepository;
+import com.imgpulak.cmp.repositorie.Repository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ public class URLShortenerServiceShould {
   private static final URI OSOCO_URI = URI.create("http://www.osoco.es");
   public static final String OSOCO_URL_MURMUR3_HASH = "339d3b53";
   private CabManagementService urlShortenerService;
-  @Mock private CabRepository shortenedUrlRepository;
+  @Mock private Repository shortenedUrlRepository;
   @Mock private IdGenerator idGenerator;
 
   @Before
@@ -49,7 +49,7 @@ public class URLShortenerServiceShould {
 
   @Test public void
   return_nothing_if_id_does_not_exist() throws MalformedURLException {
-    CabDto shortenedUrlDto = new CabDto();
+    Cab shortenedUrlDto = new Cab();
     shortenedUrlDto.setUrl(OSOCO_URI.toURL());
     shortenedUrlDto.setClientId(CLIENT_ID);
     given(shortenedUrlRepository.findURL((OSOCO_URL_MURMUR3_HASH))).willReturn(Optional.of(shortenedUrlDto));

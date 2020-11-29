@@ -1,4 +1,4 @@
-package com.imgpulak.cmp.request.model;
+package com.imgpulak.cmp.model.request;
 
 public class RegisterCabRequest {
     private String cabId;
