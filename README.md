@@ -1,32 +1,83 @@
 # In-memory URL Shortener (IMUS)
-An in-memory URL shortener service in Java
+An in-memory Cab Management service in Java
  
 # How to run it locally
 * You will need **Java 8** and **Maven** installed.
-* Execute `mvn clean package && java -jar target/url-shortener-1.0.0.jar`
+* Execute `mvn clean package && target/cab-management-portal-1.0.0.jar`
 * You can access the application in [http://localhost:8080](http://localhost:8080) 
 
-## How to create a new shortened URL
-1. Send a POST request to [http://localhost:8080](http://localhost:8080). You have several ways to do it:
- * E.g. using a curl command like: 
-~~~
+## A test suite
 curl -isbX POST \
-    http://localhost:8080 \
+    http://localhost:8080/registerCity \
     -H 'content-type: application/json' \
     -d '{
-        "clientId": "test",
-        "urlStr": "http://www.king.com"
+        "cityId": "1",
+        "cityName": "Bangalore"
     }'
-~~~
- * Another option is to use some kind of web browser addon like Postman.
-2. You will receive a plain text answer with the shortened URL. You can use it directly to be redirected to your original full URL.
 
-## How to use a shortened URL
-You have two options to check:
-* Either you introduce the shortened URL `http://localhost:8080/ef919221` in a browser.
-* or, from CLI, type something like `curl -v http://localhost:8080/ef919221` and verify the 302 redirection and the shown location.
+curl -isbX POST \
+    http://localhost:8080/registerCity \
+    -H 'content-type: application/json' \
+    -d '{
+        "cityId": "2",
+        "cityName": "Pune"
+    }'
 
-## How to get hit count of a shortened URL
-You have two options to check:
-* Either you introduce the shortened URL `http://localhost:8080/hitCount/ef919221` in a browser,
-* or, from CLI, type something like `curl -v http://localhost:8080/hitCount/ef919221`.
+
+curl -isbX POST \
+    http://localhost:8080/registerCab \
+    -H 'content-type: application/json' \
+    -d '{
+        "cabId": "1",
+        "cabState": "IDLE",
+        "cityId": "1"
+    }'
+
+
+curl -isbX POST \
+    http://localhost:8080/initiateTrip \
+    -H 'content-type: application/json' \
+    -d '{
+        "customerId": "101",
+        "sourceCityId": "1",
+        "destinationCityId": "2"
+    }'
+
+curl -isbX POST \
+    http://localhost:8080/initiateTrip \
+    -H 'content-type: application/json' \
+    -d '{
+        "customerId": "101",
+        "sourceCityId": "1",
+        "destinationCityId": "2"
+    }'
+
+curl -isbX http://localhost:8080/endTrip/0f4d439e-811b-4617-8ac7-69c453355b52
+
+curl -isbX POST \
+    http://localhost:8080/initiateTrip \
+    -H 'content-type: application/json' \
+    -d '{
+        "customerId": "101",
+        "sourceCityId": "1",
+        "destinationCityId": "2"
+    }'
+
+
+curl -isbX POST \
+    http://localhost:8080/initiateTrip \
+    -H 'content-type: application/json' \
+    -d '{
+        "customerId": "101",
+        "sourceCityId": "2",
+        "destinationCityId": "1"
+    }'
+
+curl -isbX POST \
+    http://localhost:8080/initiateTrip \
+    -H 'content-type: application/json' \
+    -d '{
+        "customerId": "101",
+        "sourceCityId": "2",
+        "destinationCityId": "1"
+    }'
