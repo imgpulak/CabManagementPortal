@@ -1,5 +1,6 @@
 package com.imgpulak.cmp.controller;
 
+import com.imgpulak.cmp.exception.CityNotFoundException;
 import com.imgpulak.cmp.exception.NoCabAvailableException;
 import com.imgpulak.cmp.exception.TripNotFoundException;
 import com.imgpulak.cmp.model.Cab;
@@ -54,6 +55,7 @@ public class CabManagementRestController {
       Cab cab = new Cab();
       cab.setCabId(payload.getCabId());
       cab.setCabState(CabState.valueOf(payload.getCabState()));
+      cab.setCityId(payload.getCityId());
       cabManagementService.registerCab(cab);
       String responseMsg = new String("{\"status\": \"CREATED\"}");
       return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
@@ -73,7 +75,7 @@ public class CabManagementRestController {
     LOG.debug("Register City API has been called.");
     try {
       City city = new City();
-      BeanUtils.copyProperties(city, payload);
+      BeanUtils.copyProperties(payload, city);
       cabManagementService.registerCity(city);
       String responseMsg = new String("{\"status\": \"CREATED\"}");
       return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
@@ -93,11 +95,11 @@ public class CabManagementRestController {
     LOG.debug("Initiate trip API has been called.");
     try {
       Trip trip = new Trip();
-      BeanUtils.copyProperties(trip, payload);
+      BeanUtils.copyProperties(payload, trip);
       String tripId = cabManagementService.initiateTrip(trip);
       String responseMsg = new String("{\"status\": \"TRIP_STARTED\", \"tripId\":" + tripId + "}");
       return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
-    } catch (IllegalArgumentException | NoCabAvailableException ex) {
+    } catch (IllegalArgumentException | NoCabAvailableException | CityNotFoundException ex) {
       LOG.error("Error when trying to initiate a trip {}", ex.getMessage());
       ex.printStackTrace();
       return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
