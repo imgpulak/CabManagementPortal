@@ -59,7 +59,7 @@ public class CabManagementRestController {
       cabManagementService.registerCab(cab);
       String responseMsg = new String("{\"status\": \"CREATED\"}");
       return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
-    } catch (IllegalArgumentException | MalformedURLException ex) {
+    } catch (IllegalArgumentException ex) {
       LOG.error("Error when trying to register a cab {}", ex.getMessage());
       ex.printStackTrace();
       return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
@@ -79,7 +79,7 @@ public class CabManagementRestController {
       cabManagementService.registerCity(city);
       String responseMsg = new String("{\"status\": \"CREATED\"}");
       return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
-    } catch (IllegalArgumentException | MalformedURLException ex) {
+    } catch (IllegalArgumentException ex) {
       LOG.error("Error when trying to register a city {}", ex.getMessage());
       ex.printStackTrace();
       return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);

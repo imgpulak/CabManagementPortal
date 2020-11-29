@@ -32,11 +32,11 @@ public final class CabManagementService {
     this.repository = repository;
   }
 
-  public void registerCab(Cab cab) throws MalformedURLException {
+  public void registerCab(Cab cab) {
     repository.add(cab);
   }
 
-  public void registerCity(City city) throws MalformedURLException {
+  public void registerCity(City city) {
     repository.add(city);
   }
 
