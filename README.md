@@ -1,4 +1,4 @@
-# In-memory URL Shortener (IMUS)
+# In-memory CAB Management Service
 An in-memory Cab Management service in Java
  
 # How to run it locally
